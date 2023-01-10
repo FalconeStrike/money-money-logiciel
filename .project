@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>jdbc_driver</name>
+			<value>file:/C:/Users/Ondine/Downloads/mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar</value>
+		</variable>
+	</variableList>
 </projectDescription>
