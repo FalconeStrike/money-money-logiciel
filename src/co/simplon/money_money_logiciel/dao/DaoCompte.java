@@ -36,7 +36,20 @@ public class DaoCompte {
 		try {
 			float solde = getSolde(id_compte);
 			solde = solde - somme;
-			PreparedStatement prest = LiensBdd.connectionBddPrep("UPDATE Compte SET Solde_Init = ? WHERE ID_Compte = 2");
+			PreparedStatement prest = LiensBdd.connectionBddPrep("UPDATE Compte SET Solde_Init = ? WHERE ID_Compte = " + id_compte);
+			prest.setFloat(1, solde);
+			prest.executeUpdate();
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+	}
+	
+	public static void crediterCompteDao(int id_compte, float somme) {
+		try {
+			float solde = getSolde(id_compte);
+			solde = solde + somme;
+			PreparedStatement prest = LiensBdd.connectionBddPrep("UPDATE Compte SET Solde_Init = ? WHERE ID_Compte = " + id_compte);
 			prest.setFloat(1, solde);
 			prest.executeUpdate();
 			LiensBdd.closeBdd();
