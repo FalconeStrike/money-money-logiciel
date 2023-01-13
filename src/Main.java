@@ -1,4 +1,3 @@
-import co.simplon.money_money_logiciel.dao.*;
 import co.simplon.money_money_logiciel.vues.*;
 
 public class Main {
