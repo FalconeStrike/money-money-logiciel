@@ -52,7 +52,7 @@ public class GestionBancaireGUI extends JFrame {
 				Client myClient = Client_Handler.connectClient(txtNomClient.getText());
 				if (myClient != null) {
 					JFrame SelectionCompteGUI = new JFrame();
-					new SelectionCompteGUI(myClient);
+					new ListeComptesFormGUI(myClient);
 
 				} else {
 					txtNomClient.setBorder(BorderFactory.createLineBorder(Color.RED, 2));

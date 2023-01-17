@@ -27,4 +27,19 @@ public class DaoClient {
 		return 0;
 	}
 
+	public static String getNameById(int idClient) {
+		String libelleClient = " ";
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			String rq = "SELECT * FROM Client WHERE ID_Client LIKE '" + idClient + "'";
+			ResultSet rs = st.executeQuery(rq);
+			rs.next();
+			LiensBdd.closeBdd();
+			libelleClient = rs.getString(2);
+		} catch (SQLException e) {
+			System.out.println("SQL Exception");
+		}
+		return libelleClient;
+	}
+
 }

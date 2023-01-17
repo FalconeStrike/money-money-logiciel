@@ -12,16 +12,30 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import co.simplon.money_money_logiciel.controller.Client_Handler;
 import co.simplon.money_money_logiciel.controller.Compte_Handler;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
+import java.awt.Dialog.ModalExclusionType;
 
+/**
+ * Formulaire d'ouverture d'un compte
+ * 
+ * @author Ondine
+ *
+ */
 public class OuvrirCompteFormGUI extends JFrame {
 
 	static JTextField jTextField;
 	static JLabel jLabel;
 	static JButton jButton;
 
+	/**
+	 * La fenêtre de création de compte s'ouvre en prenant en compte l'id du client
+	 * connecté
+	 * 
+	 * @param id_client
+	 */
 	public OuvrirCompteFormGUI(final int id_client) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,20 +61,20 @@ public class OuvrirCompteFormGUI extends JFrame {
 		lblMontant.setBounds(50, 140, 138, 59);
 		getContentPane().add(lblMontant);
 
-		final JTextArea textMontant = new JTextArea(" ");
-		textMontant.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		textMontant.setBounds(253, 150, 122, 34);
-		getContentPane().add(textMontant);
+		final JTextArea txtClient = new JTextArea(Client_Handler.libelleClient(id_client));
+		txtClient.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		txtClient.setBounds(253, 150, 122, 34);
+		getContentPane().add(txtClient);
 
 		final JLabel messageConfirm = new JLabel(" ");
 		messageConfirm.setForeground(new Color(255, 0, 0));
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
-		messageConfirm.setBounds(50, 575, 374, 60);
+		messageConfirm.setBounds(50, 530, 374, 60);
 
 		final JButton btnNewButton = new JButton("Ouvrir un compte");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnNewButton.setBounds(123, 626, 225, 40);
+		btnNewButton.setBounds(123, 580, 225, 40);
 		getContentPane().add(btnNewButton);
 
 		JLabel lblSoldeInitial = new JLabel("Solde initial");
@@ -92,6 +106,11 @@ public class OuvrirCompteFormGUI extends JFrame {
 		rdbtnCompteCourant.setBounds(253, 310, 175, 23);
 		getContentPane().add(rdbtnCompteCourant);
 		rdbtnCompteCourant.addActionListener(new ActionListener() {
+			/**
+			 * Fonction qui affiche les champs du compte courant au clic du bouton radio
+			 * 
+			 * @param e le clic le bouton radio compte courant
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnCompteCourant.isSelected() == true) {
 					rdbtnCompteEpargne.setSelected(false);
@@ -106,6 +125,11 @@ public class OuvrirCompteFormGUI extends JFrame {
 		rdbtnCompteEpargne.setBounds(253, 352, 175, 23);
 		getContentPane().add(rdbtnCompteEpargne);
 		rdbtnCompteEpargne.addActionListener(new ActionListener() {
+			/**
+			 * Fonction qui affiche les champs du compte épargne au clic du bouton radio
+			 * 
+			 * @param e le clic le bouton radio compte épargne
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnCompteEpargne.isSelected() == true) {
 					rdbtnCompteCourant.setSelected(false);
@@ -171,7 +195,20 @@ public class OuvrirCompteFormGUI extends JFrame {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				// Vérification champ Client pas vide et moins de 100 caractères
+				String libelle = " ";
+				if (!txtClient.getText().isEmpty()
+						|| txtClient.getText() != null && txtClient.getText().length() < 100) {
+					libelle = txtClient.getText();
+				} else {
+					txtClient.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+					messageConfirm.setText("Ce champ ne peut pas être vide");
+					setVisible(true);
+				}
+
 				int num_compte = Integer.parseInt(txtNumCompte.getText());
+
 				float soldeInit = 0;
 				// Vérification que le champ Solde n'est pas vide
 				if (!txtSoldeInit.getText().isEmpty() && txtSoldeInit.getText() != null) {
@@ -224,41 +261,45 @@ public class OuvrirCompteFormGUI extends JFrame {
 					messageConfirm.setText("Le solde doit dépasser le solde minimum");
 					messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 					txtSoldeInit.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-					messageConfirm.setBounds(60, 575, 374, 60);
+					messageConfirm.setBounds(60, 5305, 374, 60);
 					setVisible(true);
 				}
 				// Création du compte courant
 				else if (rdbtnCompteCourant.isSelected() == true && soldeInit >= solde_min) {
-					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 2, frais_transfert, solde_min);
+					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 2, libelle, frais_transfert,
+							solde_min);
 					messageConfirm.setText("Le compte n°" + num_compte + " a bien été créé");
 					messageConfirm.setForeground(new Color(0, 255, 0));
-					messageConfirm.setBounds(60, 575, 374, 60);
+					messageConfirm.setBounds(60, 530, 374, 60);
 					setVisible(true);
+					btnNewButton.setEnabled(false);
 				}
 				// Vérification solde initial est inférieur au plafond
 				else if (rdbtnCompteEpargne.isSelected() == true && soldeInit > plafond) {
 					messageConfirm.setText("Le solde ne doit pas dépasser le plafond");
 					messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 					txtSoldeInit.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-					messageConfirm.setBounds(60, 575, 374, 60);
+					messageConfirm.setBounds(60, 530, 374, 60);
 					setVisible(true);
 				}
 				// Création compte épargne
 				else if (rdbtnCompteEpargne.isSelected() == true && soldeInit <= plafond) {
-					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 1, taux, plafond);
+					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 1, libelle, taux, plafond);
 					messageConfirm.setText("Le compte n°" + num_compte + " a bien été créé");
 					messageConfirm.setForeground(new Color(0, 255, 0));
-					messageConfirm.setBounds(60, 575, 374, 60);
+					messageConfirm.setBounds(60, 530, 374, 60);
 					setVisible(true);
+					btnNewButton.setEnabled(false);
 				} else {
 					messageConfirm.setText("Tous les champs doivent être remplis");
 					setVisible(true);
 				}
-				btnNewButton.setEnabled(false);
 			}
 		});
 
-		setSize(480, 800);
+		setSize(480, 780);
+		setLocationRelativeTo(null);
 		setVisible(true);
+
 	}
 }
