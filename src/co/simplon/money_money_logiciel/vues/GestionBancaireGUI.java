@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,6 +16,7 @@ import co.simplon.money_money_logiciel.modeles.Client;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class GestionBancaireGUI extends JFrame {
 	private JTextField txtNomClient;
@@ -37,25 +40,36 @@ public class GestionBancaireGUI extends JFrame {
 		lblLogo.setBounds(80, 35, 300, 300);
 		getContentPane().add(lblLogo);
 
-		txtNomClient = new JTextField();
-		txtNomClient.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		txtNomClient.setBounds(60, 339, 330, 40);
-		txtNomClient.setToolTipText("Max 50 character");
-		getContentPane().add(txtNomClient);
-		txtNomClient.setColumns(10);
+//		txtNomClient = new JTextField();
+//		txtNomClient.setFont(new Font("Tahoma", Font.PLAIN, 24));
+//		txtNomClient.setBounds(60, 339, 330, 40);
+//		txtNomClient.setToolTipText("Max 50 character");
+//		getContentPane().add(txtNomClient);
+//		txtNomClient.setColumns(10);
+
+		String[] nomsClients = Client_Handler.ListeNomClients();
+		final JComboBox comboBox = new JComboBox(nomsClients);
+		comboBox.setEditable(true);
+		comboBox.setBounds(60, 390, 330, 34);
+		getContentPane().add(comboBox);
 
 		JButton btnValider = new JButton("Valider");
 		btnValider.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnValider.setBounds(150, 477, 150, 40);
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Client myClient = Client_Handler.connectClient(txtNomClient.getText());
-				if (myClient != null) {
-					JFrame SelectionCompteGUI = new JFrame();
+				if (comboBox.getSelectedIndex() != -1) {
+					String clientSelected = comboBox.getItemAt(comboBox.getSelectedIndex()).toString();
+					Client myClient = Client_Handler.connectClient(clientSelected);
+					JFrame ListeComptesFormGUI = new JFrame();
 					new ListeComptesFormGUI(myClient);
-
+				} else if (comboBox.getEditor().getItem().toString() != null && comboBox.getEditor().getItem().toString().isEmpty() != true){
+					String clientCreated = comboBox.getEditor().getItem().toString();
+					Client myClient = Client_Handler.connectClient(clientCreated);
+					JFrame ListeComptesFormGUI = new JFrame();
+					new ListeComptesFormGUI(myClient);
 				} else {
-					txtNomClient.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+					comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 				}
 			}
 		});
@@ -63,5 +77,4 @@ public class GestionBancaireGUI extends JFrame {
 
 		setVisible(true);
 	}
-
 }

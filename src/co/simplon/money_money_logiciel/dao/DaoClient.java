@@ -42,4 +42,18 @@ public class DaoClient {
 		return libelleClient;
 	}
 
+	public static ResultSet getAllClients() {
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			String rq = "SELECT * FROM Client";
+			ResultSet rs = st.executeQuery(rq);
+			LiensBdd.closeBdd();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println("SQL Exception");
+		}
+		return null;
+
+	}
+
 }
