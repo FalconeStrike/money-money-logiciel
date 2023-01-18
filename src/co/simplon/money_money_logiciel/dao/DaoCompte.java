@@ -57,4 +57,18 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 	}
+	
+	public static ResultSet getAllCompte(int id_client) {
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery("SELECT * FROM Compte\r\n"
+										 + "WHERE ID_Client = " + id_client);
+			LiensBdd.closeBdd();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return null;
+	}
+
 }

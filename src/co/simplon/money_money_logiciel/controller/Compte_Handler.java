@@ -1,6 +1,15 @@
 package co.simplon.money_money_logiciel.controller;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
+
 import co.simplon.money_money_logiciel.dao.DaoCompte;
+import co.simplon.money_money_logiciel.modeles.Compte;
+import co.simplon.money_money_logiciel.modeles.CompteTableModel;
 
 public class Compte_Handler {
 
@@ -32,4 +41,25 @@ public class Compte_Handler {
 		}
 	}
 
+	public static CompteTableModel getCompteTable(int id_client) {
+		try {
+			ResultSet rs = DaoCompte.getAllCompte(id_client);
+			
+			List<Compte> comptes = new ArrayList<Compte>();
+			while (rs.next()) {
+				Compte compteAtRow = new Compte();		
+				compteAtRow.setID_Compte(rs.getInt(1));
+				compteAtRow.setID_Typecompte(rs.getInt(2));
+				compteAtRow.setNum_Compte(rs.getInt(3));
+				compteAtRow.setID_Client(rs.getInt(4));
+				compteAtRow.setSolde_Init(rs.getFloat(5));
+				compteAtRow.setLibelle_Client(rs.getString(6));
+				comptes.add(compteAtRow);
+			}
+			return new CompteTableModel(comptes);
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return null;
+	}
 }
