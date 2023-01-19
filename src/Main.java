@@ -6,6 +6,7 @@ public class Main {
 		// TODO Auto-generated method stub
 //		new ListeComptesFormGUI();
 //		new CrediterCompteFormGUI(2);
-		new OuvrirCompteFormGUI(2);
+//		new OuvrirCompteFormGUI(2);
+		new GestionBancaireGUI();
 	}
 }
