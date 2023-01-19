@@ -2,8 +2,19 @@ package co.simplon.money_money_logiciel.dao;
 
 import java.sql.*;
 
+/**
+ *  Classe DaoClient qui regroupe les requêtes SQL qui concerne le modèle Client
+ * @author Julien
+ * @author Ondine
+ *
+ */
 public class DaoClient {
 
+	/**
+	 * Requête SQL qui permet de trouver un client par son nom et d'en créer un si le client n'existe pas dans la base
+	 * @param nomClient
+	 * @return l'id du client
+	 */
 	public static int getIdClient(String nomClient) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
@@ -27,6 +38,11 @@ public class DaoClient {
 		return 0;
 	}
 
+	/**
+	 * Requête qui permet de récupérer le nom d'un client par son id
+	 * @param idClient
+	 * @return le nom du client
+	 */
 	public static String getNameById(int idClient) {
 		String libelleClient = " ";
 		try {
@@ -42,6 +58,10 @@ public class DaoClient {
 		return libelleClient;
 	}
 
+	/**
+	 * Requête pour récupérer la liste de tous les clients existants
+	 * @return la liste des clients en type ResultSet
+	 */
 	public static ResultSet getAllClients() {
 		try {
 			Statement st = LiensBdd.connectionBdd();

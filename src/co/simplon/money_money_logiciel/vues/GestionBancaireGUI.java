@@ -18,9 +18,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+/**
+ * Formulaire de connection/création d'un client
+ * 
+ * @author Julien
+ * @author Ondine
+ *
+ */
 public class GestionBancaireGUI extends JFrame {
-	private JTextField txtNomClient;
 
+	/**
+	 * La fenêtre de connection/création de client grâce à son nom
+	 */
 	public GestionBancaireGUI() {
 		setTitle("Money-Money-Logiciel");
 		setSize(450, 700);
@@ -40,13 +49,7 @@ public class GestionBancaireGUI extends JFrame {
 		lblLogo.setBounds(80, 35, 300, 300);
 		getContentPane().add(lblLogo);
 
-//		txtNomClient = new JTextField();
-//		txtNomClient.setFont(new Font("Tahoma", Font.PLAIN, 24));
-//		txtNomClient.setBounds(60, 339, 330, 40);
-//		txtNomClient.setToolTipText("Max 50 character");
-//		getContentPane().add(txtNomClient);
-//		txtNomClient.setColumns(10);
-
+		// Liste déroulante des clients existants
 		String[] nomsClients = Client_Handler.ListeNomClients();
 		final JComboBox comboBox = new JComboBox(nomsClients);
 		comboBox.setEditable(true);
@@ -58,21 +61,36 @@ public class GestionBancaireGUI extends JFrame {
 		btnValider.setBounds(150, 477, 150, 40);
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Vérification si le client a été selectionné dans la liste de clients
+				// existants puis ouverture de la page
 				if (comboBox.getSelectedIndex() != -1) {
 					String clientSelected = comboBox.getItemAt(comboBox.getSelectedIndex()).toString();
 					Client myClient = Client_Handler.connectClient(clientSelected);
-					JFrame ListeComptesFormGUI = new JFrame();
-					new ListeComptesFormGUI(myClient);
-				} else if (comboBox.getEditor().getItem().toString() != null && comboBox.getEditor().getItem().toString().isEmpty() != true){
+					if (myClient != null) {
+						JFrame ListeComptesFormGUI = new JFrame();
+						new ListeComptesFormGUI(myClient);
+					}
+					// Vérification si le nom du client a été saisi manuellement puis création du
+					// client et ouverture de la page
+				} else if (comboBox.getEditor().getItem().toString() != null
+						&& comboBox.getEditor().getItem().toString().isEmpty() != true) {
 					String clientCreated = comboBox.getEditor().getItem().toString();
 					Client myClient = Client_Handler.connectClient(clientCreated);
-					JFrame ListeComptesFormGUI = new JFrame();
-					new ListeComptesFormGUI(myClient);
+					if (myClient != null) {
+						JFrame ListeComptesFormGUI = new JFrame();
+						new ListeComptesFormGUI(myClient);
+					} else {
+						comboBox.setToolTipText("Max 50 characters");
+						comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+					}
+					// Message d'erreur si le champ est laissé vide
 				} else {
+					comboBox.setToolTipText("Le champ ne peut pas être vide");
 					comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 				}
 			}
 		});
+
 		getContentPane().add(btnValider);
 
 		setVisible(true);

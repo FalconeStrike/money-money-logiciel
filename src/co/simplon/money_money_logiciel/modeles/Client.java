@@ -1,5 +1,12 @@
 package co.simplon.money_money_logiciel.modeles;
 
+/**
+ * Le modèle Client et ses attributs
+ * 
+ * @author Julien
+ * @author Ondine
+ *
+ */
 public class Client {
 
 	private int id_client;
@@ -14,6 +21,8 @@ public class Client {
 		this.id_client = id_client;
 		this.nom_client = nom_client;
 	}
+	
+	//Getters et Setters
 
 	public int getId_client() {
 		return id_client;
