@@ -2,6 +2,7 @@ package co.simplon.money_money_logiciel.vues;
 
 import javax.swing.*;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
@@ -14,6 +15,21 @@ import co.simplon.money_money_logiciel.dao.DaoCompte;
 import javax.swing.JButton;
 import java.util.*;
 import javax.swing.JTextArea;
+
+import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import co.simplon.money_money_logiciel.controller.Client_Handler;
+import co.simplon.money_money_logiciel.modeles.Client;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 
 public class DebiterCompteFormGUI extends JFrame {
 

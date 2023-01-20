@@ -95,6 +95,20 @@ public class DaoCompte {
 		}
 	}
 
+	public static ResultSet getListComptedestination(int id_compte, int id_client) {
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM compte INNER JOIN type_compte ON compte.id_typecompte = type_compte.id_typecompte WHERE id_client = "
+							+ id_client + " AND NOT id_compte =" + id_compte);
+			LiensBdd.closeBdd();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return null;
+	}
+
 	public static ResultSet getAllCompte(int id_client) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
