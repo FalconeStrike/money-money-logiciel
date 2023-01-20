@@ -22,7 +22,6 @@ public class DebiterCompteFormGUI extends JFrame {
 	static JButton jButton;
 
 	public DebiterCompteFormGUI(final int id) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Débiter");
 
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));

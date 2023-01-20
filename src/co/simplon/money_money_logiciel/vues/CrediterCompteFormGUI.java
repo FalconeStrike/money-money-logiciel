@@ -22,7 +22,6 @@ public class CrediterCompteFormGUI extends JFrame {
 	static JButton jButton;
 
 	public CrediterCompteFormGUI(final int id) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Créditer");
 
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));

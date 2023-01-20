@@ -2,6 +2,8 @@ package co.simplon.money_money_logiciel.dao;
 
 import java.sql.*;
 
+import co.simplon.money_money_logiciel.modeles.Compte;
+
 public class DaoCompte {
 
 	public static int getNumeroCompte(int id_compte) {
@@ -69,6 +71,32 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 		return null;
+	}
+	
+	public static void deleteCompte(Compte compte) {
+		try {
+			String rq = "";
+			if (compte.getID_Typecompte() == 1) {
+				rq = "DELETE FROM Epargne WHERE ID_Compte = " + compte.getID_Compte();
+			} else {
+				rq = "DELETE FROM Courant WHERE ID_Compte = " + compte.getID_Compte();
+			}
+			PreparedStatement pst = LiensBdd.connectionBddPrep(rq);
+			pst.executeUpdate();
+			rq = "DELETE FROM Compte WHERE ID_Compte = " + compte.getID_Compte();
+			PreparedStatement pst2 = LiensBdd.connectionBddPrep(rq);
+			pst2.executeUpdate();
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery("SELECT ID_Compte FROM Compte WHERE ID_Client = " + compte.getID_Client());
+			if (!rs.next()) {
+				rq = "DELETE FROM Client WHERE ID_Client = " + compte.getID_Client();
+				PreparedStatement pst3 = LiensBdd.connectionBddPrep(rq);
+				pst3.executeUpdate();
+			}
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found: Delete impossible");
+		}
 	}
 
 }

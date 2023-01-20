@@ -51,9 +51,8 @@ public class GestionBancaireGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Client myClient = Client_Handler.connectClient(txtNomClient.getText());
 				if (myClient != null) {
-					JFrame SelectionCompteGUI = new JFrame();
 					new SelectionCompteGUI(myClient);
-
+					setVisible(false);
 				} else {
 					txtNomClient.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 				}
@@ -61,6 +60,7 @@ public class GestionBancaireGUI extends JFrame {
 		});
 		getContentPane().add(btnValider);
 
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 

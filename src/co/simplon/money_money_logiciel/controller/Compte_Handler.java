@@ -62,4 +62,8 @@ public class Compte_Handler {
 		}
 		return null;
 	}
+	
+	public static void clotureCompteClient (Compte compte) {
+		DaoCompte.deleteCompte(compte);
+	}
 }
