@@ -120,9 +120,10 @@ public class DaoCompte {
 		}
 		return null;
 	}
-
-	public static void deleteCompte(Compte compte) {
+	
+	public static Boolean deleteCompte(Compte compte) {
 		try {
+			Boolean isClientDel = false;
 			String rq = "";
 			if (compte.getID_Typecompte() == 1) {
 				rq = "DELETE FROM Epargne WHERE ID_Compte = " + compte.getID_Compte();
@@ -140,11 +141,14 @@ public class DaoCompte {
 				rq = "DELETE FROM Client WHERE ID_Client = " + compte.getID_Client();
 				PreparedStatement pst3 = LiensBdd.connectionBddPrep(rq);
 				pst3.executeUpdate();
+				isClientDel = true;
 			}
 			LiensBdd.closeBdd();
+			return isClientDel;
 		} catch (SQLException e) {
 			System.out.println("SQL Exception found: Delete impossible");
 		}
+		return false;
 	}
 
 	/**
@@ -209,7 +213,7 @@ public class DaoCompte {
 	 */
 	public static void creerCompteEpargneDao(int id_compte, float taux, float plafond) {
 		try {
-			String rq = "INSERT INTO courant (ID_Compte, Taux, Plafond) VALUES ('" + id_compte + "','" + taux + "','"
+			String rq = "INSERT INTO epargne (ID_Compte, Taux, Plafond) VALUES ('" + id_compte + "','" + taux + "','"
 					+ plafond + "')";
 			PreparedStatement prest = LiensBdd.connectionBddPrep(rq);
 			prest.executeUpdate();
