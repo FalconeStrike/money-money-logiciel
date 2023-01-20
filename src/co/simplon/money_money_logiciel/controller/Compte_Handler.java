@@ -1,27 +1,43 @@
 package co.simplon.money_money_logiciel.controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.table.AbstractTableModel;
-
+import java.sql.*;
+import java.util.*;
 import co.simplon.money_money_logiciel.dao.DaoCompte;
 import co.simplon.money_money_logiciel.modeles.Compte;
 import co.simplon.money_money_logiciel.modeles.CompteWrapperTableModel;
 import co.simplon.money_money_logiciel.modeles.WrapperCompte;
+import co.simplon.money_money_logiciel.modeles.CompteTableModel;
 
 public class Compte_Handler {
 
+	/**
+	 * Méthode qui permet d'afficher le solde d'un compte grâce à son id
+	 * 
+	 * @param idCompte l'id du compte
+	 * @return le solde du compte
+	 */
 	public static float afficheSolde(int idCompte) {
 		return DaoCompte.getSolde(idCompte);
 	}
 
+	/**
+	 * Méthode qui permet d'afficher le numéro d'un compte grâce à son id
+	 * 
+	 * @param idCompte l'id du compte
+	 * @return le numéro du compte
+	 */
 	public static int afficheNumCompte(int idCompte) {
 		return DaoCompte.getNumeroCompte(idCompte);
 	}
 
+	/**
+	 * Méthode qui permet de débiter un compte
+	 * 
+	 * @param idCompte        l'id du compte
+	 * @param soldeActuel     le solde du compte
+	 * @param montantADebiter le montant que l'on veut enlever au solde
+	 * @return un boolean, si le débit a été vérifié return true, sinon return false
+	 */
 	public static boolean debiterCompte(int idCompte, float soldeActuel, float montantADebiter) {
 		soldeActuel = DaoCompte.getSolde(idCompte);
 		if (soldeActuel >= montantADebiter && montantADebiter > 0) {
@@ -31,35 +47,39 @@ public class Compte_Handler {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Méthode qui permet de créditer un compte
+	 * 
+	 * @param idCompte         l'id du compte
+	 * @param soldeActuel      le solde du compte
+	 * @param montantACrediter le montant que l'on veut ajouter au solde
+	 * @return un boolean, si le crédit a été vérifié return true, sinon return
+	 *         false
+	 */
 	public static boolean crediterCompte(int idCompte, float soldeActuel, float montantACrediter) {
 		soldeActuel = DaoCompte.getSolde(idCompte);
-		if ( soldeActuel + montantACrediter < 999999) {
+		if (soldeActuel + montantACrediter < 999999) {
 			DaoCompte.crediterCompteDao(idCompte, montantACrediter);
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	public static CompteWrapperTableModel getCompteDestination(int id_client,int id_compte) {
+
+	public static CompteWrapperTableModel getCompteDestination(int id_client, int id_compte) {
 		try {
 			ResultSet rs = DaoCompte.getListComptedestination(id_client, id_compte);
-			
+
 			List<WrapperCompte> comptes = new ArrayList<WrapperCompte>();
 			while (rs.next()) {
-				WrapperCompte wrapperCompte = new WrapperCompte();		
+				WrapperCompte wrapperCompte = new WrapperCompte();
 				wrapperCompte.setID_Compte(rs.getInt(1));
 				wrapperCompte.setID_Client(rs.getInt(5));
 				wrapperCompte.setNum_Compte(rs.getInt(3));
 				wrapperCompte.setSolde_Init(rs.getFloat(6));
 				wrapperCompte.setNOM_TYPE(rs.getString(8));
-				
+
 				comptes.add(wrapperCompte);
 				return new CompteWrapperTableModel(comptes);
 			}
@@ -67,6 +87,79 @@ public class Compte_Handler {
 			System.out.println("SQL Exception found");
 		}
 		return null;
+	}
+
+	public static CompteTableModel getCompteTable(int id_client) {
+		try {
+			ResultSet rs = DaoCompte.getAllCompte(id_client);
+
+			List<Compte> comptes = new ArrayList<Compte>();
+			while (rs.next()) {
+				Compte compteAtRow = new Compte();
+				compteAtRow.setID_Compte(rs.getInt(1));
+				compteAtRow.setID_Typecompte(rs.getInt(2));
+				compteAtRow.setNum_Compte(rs.getInt(3));
+				compteAtRow.setID_Client(rs.getInt(4));
+				compteAtRow.setSolde_Init(rs.getFloat(5));
+				compteAtRow.setLibelle_Client(rs.getString(6));
+				comptes.add(compteAtRow);
+			}
+			return new CompteTableModel(comptes);
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return null;
+	}
+
+	public static void clotureCompteClient(Compte compte) {
+		DaoCompte.deleteCompte(compte);
+	}
+
+	/**
+	 * Méthode qui permet de renvoyer un numéro généré aléatoirement de 1 à 999999
+	 * 
+	 * @return un numéro de compte
+	 */
+	public static int generateNumCompte() {
+		Random rand = new Random();
+		int num_compte = rand.nextInt(999999);
+		num_compte += 1;
+		return num_compte;
+	}
+
+	/**
+	 * Fonction qui permet de créer un compte avec tous les paramètres et de
+	 * spécifier son type de compte Vérifie que les paramètres passés sont valides
+	 * 
+	 * @param num_compte  le numéro du compte
+	 * @param idClient    l'id du client
+	 * @param solde_init  le solde du compte
+	 * @param type_compte le type de compte, courant ou épargne
+	 * @param libelle     le libellé du client
+	 * @param param_1     le premier paramètre du type de compte, frais transfert ou
+	 *                    taux
+	 * @param param_2     le deuxième paramètre du type de compte, solde minimum et
+	 *                    plafond
+	 */
+	public static void creerCompte(int num_compte, int idClient, float solde_init, int type_compte, String libelle,
+			float param_1, float param_2) {
+		if (solde_init >= 0 && type_compte != 0 && param_1 < 100000 && param_2 < 100000 && param_1 >= 0
+				&& param_2 >= 0) {
+			int idCompte = DaoCompte.creerCompteDao(num_compte, idClient, solde_init, type_compte, libelle);
+			Compte myCompte = new Compte();
+			myCompte.setID_Compte(idCompte);
+			myCompte.setID_Typecompte(type_compte);
+			myCompte.setNum_Compte(num_compte);
+			myCompte.setID_Client(idClient);
+			myCompte.setSolde_Init(solde_init);
+			myCompte.setLibelle_Client(libelle);
+			if (myCompte.getID_Typecompte() == 2 && solde_init >= param_1) {
+				DaoCompte.creerCompteCourantDao(myCompte.getID_Compte(), param_1, param_2);
+			}
+			if (myCompte.getID_Typecompte() == 1 && solde_init <= param_2) {
+				DaoCompte.creerCompteEpargneDao(myCompte.getID_Compte(), param_1, param_2);
+			}
+		}
 	}
 
 }

@@ -1,21 +1,34 @@
 package co.simplon.money_money_logiciel.modeles;
 
+/**
+ * Le modèle Compte et ses attributs
+ * 
+ * @author Ondine
+ *
+ */
 public class Compte {
 
 	private int ID_Compte;
 	private int ID_Typecompte;
 	private int Num_Compte;
-	private int ID_Banque;
 	private int ID_Client;
 	private float Solde_Init;
+	private String Libelle_Client;
 
-	public Compte(int ID_Compte, int ID_Typecompte, int Num_Compte, int ID_Banque, int ID_Client, float Solde_Init) {
+	public Compte() {
+		
+	}
+	
+
+
+	public Compte(int ID_Compte, int ID_Typecompte, int Num_Compte, int ID_Client, float Solde_Init,
+			String Libelle_Client) {
 		this.ID_Compte = ID_Compte;
 		this.ID_Typecompte = ID_Typecompte;
 		this.Num_Compte = Num_Compte;
-		this.ID_Banque = ID_Banque;
 		this.ID_Client = ID_Client;
 		this.Solde_Init = Solde_Init;
+		this.Libelle_Client = Libelle_Client;
 	}
 
 	// Getters et Setters
@@ -44,14 +57,6 @@ public class Compte {
 		Num_Compte = num_Compte;
 	}
 
-	public int getID_Banque() {
-		return ID_Banque;
-	}
-
-	public void setID_Banque(int iD_Banque) {
-		ID_Banque = iD_Banque;
-	}
-
 	public int getID_Client() {
 		return ID_Client;
 	}
@@ -66,5 +71,13 @@ public class Compte {
 
 	public void setSolde_Init(float solde_Init) {
 		Solde_Init = solde_Init;
+	}
+
+	public String getLibelle_Client() {
+		return Libelle_Client;
+	}
+
+	public void setLibelle_Client(String libelle_Client) {
+		Libelle_Client = libelle_Client;
 	}
 }

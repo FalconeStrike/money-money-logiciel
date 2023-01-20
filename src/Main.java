@@ -14,21 +14,13 @@ public class Main {
 		//new CrediterCompteFormGUI(2);
 		//new DaoCompte();
 		//DaoCompte.crediterCompteDao(0, 0);
-		
-		
-		
-		///////////////////////////////////////////////////////////////////AMAL////////////////////////
-		
 		//ModifierCompteCourantFormGUI frame1 = new ModifierCompteCourantFormGUI(2);
 		//frame1.setVisible(true);
-		
 		//ModifierCompteEpargneFormGUI frame2 = new ModifierCompteEpargneFormGUI(1);
 		//frame2.setVisible(true);
-		 Compte compte = new Compte (2,2,782425,1,2,4146);
-		TransfererSoldeFormGUI frame3 = new TransfererSoldeFormGUI(compte);
-		frame3.setVisible(true);
-		
-		
+//		Compte compte = new Compte (2,2,782425,1,2,4146);
+//		TransfererSoldeFormGUI frame3 = new TransfererSoldeFormGUI(compte);
+//		frame3.setVisible(true);
 		//new DaoCourant();
 		//DaoCourant.getFraisDeTransfert(2);
 		//DaoCourant.ModifierFraisDeTransfertCourantDao(1, 5);
@@ -39,13 +31,11 @@ public class Main {
 		//DaoEpargne.UpdateTauxInteretEpargne(2, 8);
 		//DaoEpargne.UpdateNomClient(1,"Lalo");
 		//DaoEpargne.getNomClient(3);
-		
 		//DaoCompte.getTypeCompte(2);
 		//Compte_Handler.getCompteDestination(1, 2);
-		
-
-		
-		
+//		new ListeComptesFormGUI();
+//		new CrediterCompteFormGUI(2);
+//		new OuvrirCompteFormGUI(2);
+		new GestionBancaireGUI();
 	}
-
 }
