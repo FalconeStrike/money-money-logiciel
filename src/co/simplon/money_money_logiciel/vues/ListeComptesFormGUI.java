@@ -21,7 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class SelectionCompteGUI extends JFrame {
+
+public class ListeComptesFormGUI extends JFrame {
 	private JScrollPane pnCompte;
 	private JTable tbCompte;
     ListSelectionModel listSelectionModel;
@@ -30,7 +31,7 @@ public class SelectionCompteGUI extends JFrame {
     private JButton btnTransferer;
     private JButton btnModifier;
     private JButton btnDelete;
-	public SelectionCompteGUI(Client myClient) {
+	public ListeComptesFormGUI(final Client myClient) {
 		setTitle(myClient.getNom_client());
 		setSize(900, 700);
 		setResizable(false);
@@ -74,7 +75,7 @@ public class SelectionCompteGUI extends JFrame {
 		btnOpen.setBounds(175, 350, 150, 40);
 		btnOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//					new OpenCompteFormGUI(myClient.getId_client());
+					new OuvrirCompteFormGUI(myClient.getId_client());
 			}
 		});
 		getContentPane().add(btnOpen);

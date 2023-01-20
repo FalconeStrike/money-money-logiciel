@@ -1,5 +1,11 @@
 package co.simplon.money_money_logiciel.modeles;
 
+/**
+ * Le modèle Compte et ses attributs
+ * 
+ * @author Ondine
+ *
+ */
 public class Compte {
 
 	private int ID_Compte;
@@ -13,7 +19,10 @@ public class Compte {
 		
 	}
 	
-	public Compte(int ID_Compte, int ID_Typecompte, int Num_Compte, int ID_Client, float Solde_Init, String Libelle_Client) {
+
+
+	public Compte(int ID_Compte, int ID_Typecompte, int Num_Compte, int ID_Client, float Solde_Init,
+			String Libelle_Client) {
 		this.ID_Compte = ID_Compte;
 		this.ID_Typecompte = ID_Typecompte;
 		this.Num_Compte = Num_Compte;
@@ -23,14 +32,6 @@ public class Compte {
 	}
 
 	// Getters et Setters
-
-	public String getLibelle_Client() {
-		return Libelle_Client;
-	}
-
-	public void setLibelle_Client(String libelle_Client) {
-		Libelle_Client = libelle_Client;
-	}
 
 	public int getID_Compte() {
 		return ID_Compte;
@@ -70,5 +71,13 @@ public class Compte {
 
 	public void setSolde_Init(float solde_Init) {
 		Solde_Init = solde_Init;
+	}
+
+	public String getLibelle_Client() {
+		return Libelle_Client;
+	}
+
+	public void setLibelle_Client(String libelle_Client) {
+		Libelle_Client = libelle_Client;
 	}
 }
