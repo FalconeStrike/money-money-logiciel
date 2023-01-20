@@ -16,8 +16,10 @@ public class Compte {
 	private String Libelle_Client;
 
 	public Compte() {
-
+		
 	}
+	
+
 
 	public Compte(int ID_Compte, int ID_Typecompte, int Num_Compte, int ID_Client, float Solde_Init,
 			String Libelle_Client) {

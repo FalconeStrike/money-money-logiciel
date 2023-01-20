@@ -67,7 +67,6 @@ public class GestionBancaireGUI extends JFrame {
 					String clientSelected = comboBox.getItemAt(comboBox.getSelectedIndex()).toString();
 					Client myClient = Client_Handler.connectClient(clientSelected);
 					if (myClient != null) {
-						JFrame ListeComptesFormGUI = new JFrame();
 						new ListeComptesFormGUI(myClient);
 					}
 					// Vérification si le nom du client a été saisi manuellement puis création du
@@ -77,13 +76,13 @@ public class GestionBancaireGUI extends JFrame {
 					String clientCreated = comboBox.getEditor().getItem().toString();
 					Client myClient = Client_Handler.connectClient(clientCreated);
 					if (myClient != null) {
-						JFrame ListeComptesFormGUI = new JFrame();
 						new ListeComptesFormGUI(myClient);
 					} else {
 						comboBox.setToolTipText("Max 50 characters");
 						comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					}
 					// Message d'erreur si le champ est laissé vide
+
 				} else {
 					comboBox.setToolTipText("Le champ ne peut pas être vide");
 					comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
@@ -93,6 +92,7 @@ public class GestionBancaireGUI extends JFrame {
 
 		getContentPane().add(btnValider);
 
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }

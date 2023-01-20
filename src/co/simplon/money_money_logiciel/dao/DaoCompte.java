@@ -2,12 +2,17 @@ package co.simplon.money_money_logiciel.dao;
 
 import java.sql.*;
 
+<<<<<<< HEAD
+import co.simplon.money_money_logiciel.modeles.Compte;
+
+=======
 /**
  * Classe DaoCompte qui regroupe les requêtes SQL qui concerne le modèle Compte
  * 
  * @author Ondine
  *
  */
+>>>>>>> master
 public class DaoCompte {
 
 	/**
@@ -91,6 +96,48 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 	}
+<<<<<<< HEAD
+	
+	public static ResultSet getAllCompte(int id_client) {
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery("SELECT * FROM Compte\r\n"
+										 + "WHERE ID_Client = " + id_client);
+			LiensBdd.closeBdd();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return null;
+	}
+	
+	public static void deleteCompte(Compte compte) {
+		try {
+			String rq = "";
+			if (compte.getID_Typecompte() == 1) {
+				rq = "DELETE FROM Epargne WHERE ID_Compte = " + compte.getID_Compte();
+			} else {
+				rq = "DELETE FROM Courant WHERE ID_Compte = " + compte.getID_Compte();
+			}
+			PreparedStatement pst = LiensBdd.connectionBddPrep(rq);
+			pst.executeUpdate();
+			rq = "DELETE FROM Compte WHERE ID_Compte = " + compte.getID_Compte();
+			PreparedStatement pst2 = LiensBdd.connectionBddPrep(rq);
+			pst2.executeUpdate();
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery("SELECT ID_Compte FROM Compte WHERE ID_Client = " + compte.getID_Client());
+			if (!rs.next()) {
+				rq = "DELETE FROM Client WHERE ID_Client = " + compte.getID_Client();
+				PreparedStatement pst3 = LiensBdd.connectionBddPrep(rq);
+				pst3.executeUpdate();
+			}
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found: Delete impossible");
+		}
+	}
+
+=======
 
 	/**
 	 * Méthode qui permet d'insérer un compte dans la table compte avec tous ses
@@ -164,4 +211,5 @@ public class DaoCompte {
 		}
 
 	}
+>>>>>>> master
 }
