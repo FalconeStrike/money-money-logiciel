@@ -31,6 +31,7 @@ public class ListeComptesFormGUI extends JFrame {
     private JButton btnTransferer;
     private JButton btnModifier;
     private JButton btnDelete;
+    private CompteTableModel modCompteTable;
 	public ListeComptesFormGUI(final Client myClient) {
 		setTitle(myClient.getNom_client());
 		setSize(900, 700);
@@ -38,13 +39,16 @@ public class ListeComptesFormGUI extends JFrame {
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		addWindowFocusListener(new WindowAdapter() {
-			//TODO finish refresh
-//			public void windowGainedFocus(WindowEvent e)
+			public void windowGainedFocus(WindowEvent e) {
+				modCompteTable = Compte_Handler.getCompteTable(myClient.getId_client());
+				tbCompte.repaint();
+			}
 		});
 		setLocationRelativeTo(null);		
 		setVisible(true);
-		
-		tbCompte = new JTable(Compte_Handler.getCompteTable(myClient.getId_client()));
+
+		modCompteTable = Compte_Handler.getCompteTable(myClient.getId_client());
+		tbCompte = new JTable(modCompteTable);
 		tbCompte.setFillsViewportHeight(true);
         listSelectionModel = tbCompte.getSelectionModel();	
         listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -146,8 +150,14 @@ public class ListeComptesFormGUI extends JFrame {
 					btnConfirm.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Compte compte = CompteTableModel.getCompte(tbCompte.getSelectedRow());
-							Compte_Handler.clotureCompteClient(compte);
+							Boolean isClientDel = Compte_Handler.clotureCompteClient(compte);
 							delete.dispose();
+							if (isClientDel) {
+								new GestionBancaireGUI();
+								dispose();
+							} else {
+								modCompteTable.removeCompte(tbCompte.getSelectedRow());			
+							}
 					}
 				});
 					pnComfirmation.add(lblConfirmation);
@@ -156,12 +166,6 @@ public class ListeComptesFormGUI extends JFrame {
 					delete.add(pnComfirmation);
 					delete.setSize(200, 100);
 					delete.setLocationRelativeTo(null);
-					delete.addWindowListener(new WindowAdapter() {
-						public void windowClosed(WindowEvent e) {
-							revalidate();
-							repaint();
-						}
-					});
 					delete.setVisible(true);
 			}
 		});

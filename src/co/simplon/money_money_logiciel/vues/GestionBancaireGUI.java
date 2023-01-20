@@ -68,6 +68,7 @@ public class GestionBancaireGUI extends JFrame {
 					Client myClient = Client_Handler.connectClient(clientSelected);
 					if (myClient != null) {
 						new ListeComptesFormGUI(myClient);
+						dispose();
 					}
 					// Vérification si le nom du client a été saisi manuellement puis création du
 					// client et ouverture de la page
@@ -77,6 +78,7 @@ public class GestionBancaireGUI extends JFrame {
 					Client myClient = Client_Handler.connectClient(clientCreated);
 					if (myClient != null) {
 						new ListeComptesFormGUI(myClient);
+						dispose();
 					} else {
 						comboBox.setToolTipText("Max 50 characters");
 						comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));

@@ -2,17 +2,14 @@ package co.simplon.money_money_logiciel.dao;
 
 import java.sql.*;
 
-<<<<<<< HEAD
 import co.simplon.money_money_logiciel.modeles.Compte;
 
-=======
 /**
  * Classe DaoCompte qui regroupe les requêtes SQL qui concerne le modèle Compte
  * 
  * @author Ondine
  *
  */
->>>>>>> master
 public class DaoCompte {
 
 	/**
@@ -96,7 +93,6 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 	}
-<<<<<<< HEAD
 	
 	public static ResultSet getAllCompte(int id_client) {
 		try {
@@ -111,8 +107,9 @@ public class DaoCompte {
 		return null;
 	}
 	
-	public static void deleteCompte(Compte compte) {
+	public static Boolean deleteCompte(Compte compte) {
 		try {
+			Boolean isClientDel = false;
 			String rq = "";
 			if (compte.getID_Typecompte() == 1) {
 				rq = "DELETE FROM Epargne WHERE ID_Compte = " + compte.getID_Compte();
@@ -130,14 +127,15 @@ public class DaoCompte {
 				rq = "DELETE FROM Client WHERE ID_Client = " + compte.getID_Client();
 				PreparedStatement pst3 = LiensBdd.connectionBddPrep(rq);
 				pst3.executeUpdate();
+				isClientDel = true;
 			}
 			LiensBdd.closeBdd();
+			return isClientDel;
 		} catch (SQLException e) {
 			System.out.println("SQL Exception found: Delete impossible");
 		}
+		return false;
 	}
-
-=======
 
 	/**
 	 * Méthode qui permet d'insérer un compte dans la table compte avec tous ses
@@ -201,7 +199,7 @@ public class DaoCompte {
 	 */
 	public static void creerCompteEpargneDao(int id_compte, float taux, float plafond) {
 		try {
-			String rq = "INSERT INTO courant (ID_Compte, Taux, Plafond) VALUES ('" + id_compte + "','" + taux + "','"
+			String rq = "INSERT INTO epargne (ID_Compte, Taux, Plafond) VALUES ('" + id_compte + "','" + taux + "','"
 					+ plafond + "')";
 			PreparedStatement prest = LiensBdd.connectionBddPrep(rq);
 			prest.executeUpdate();
@@ -211,5 +209,4 @@ public class DaoCompte {
 		}
 
 	}
->>>>>>> master
 }
