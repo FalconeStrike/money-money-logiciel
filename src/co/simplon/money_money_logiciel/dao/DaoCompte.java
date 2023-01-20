@@ -2,17 +2,15 @@ package co.simplon.money_money_logiciel.dao;
 
 import java.sql.*;
 
-<<<<<<< HEAD
 import co.simplon.money_money_logiciel.modeles.Compte;
 
-=======
 /**
  * Classe DaoCompte qui regroupe les requêtes SQL qui concerne le modèle Compte
  * 
  * @author Ondine
  *
  */
->>>>>>> master
+
 public class DaoCompte {
 
 	/**
@@ -96,13 +94,11 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 	}
-<<<<<<< HEAD
-	
+
 	public static ResultSet getAllCompte(int id_client) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
-			ResultSet rs = st.executeQuery("SELECT * FROM Compte\r\n"
-										 + "WHERE ID_Client = " + id_client);
+			ResultSet rs = st.executeQuery("SELECT * FROM Compte\r\n" + "WHERE ID_Client = " + id_client);
 			LiensBdd.closeBdd();
 			return rs;
 		} catch (SQLException e) {
@@ -110,7 +106,7 @@ public class DaoCompte {
 		}
 		return null;
 	}
-	
+
 	public static void deleteCompte(Compte compte) {
 		try {
 			String rq = "";
@@ -136,8 +132,6 @@ public class DaoCompte {
 			System.out.println("SQL Exception found: Delete impossible");
 		}
 	}
-
-=======
 
 	/**
 	 * Méthode qui permet d'insérer un compte dans la table compte avec tous ses
@@ -211,5 +205,4 @@ public class DaoCompte {
 		}
 
 	}
->>>>>>> master
 }
