@@ -10,6 +10,7 @@ import co.simplon.money_money_logiciel.modeles.Compte;
  * @author Ondine
  *
  */
+
 public class DaoCompte {
 
 	/**
@@ -93,12 +94,25 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 	}
-	
+
+	public static ResultSet getListComptedestination(int id_compte, int id_client) {
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM compte INNER JOIN type_compte ON compte.id_typecompte = type_compte.id_typecompte WHERE id_client = "
+							+ id_client + " AND NOT id_compte =" + id_compte);
+			LiensBdd.closeBdd();
+			return rs;
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return null;
+	}
+
 	public static ResultSet getAllCompte(int id_client) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
-			ResultSet rs = st.executeQuery("SELECT * FROM Compte\r\n"
-										 + "WHERE ID_Client = " + id_client);
+			ResultSet rs = st.executeQuery("SELECT * FROM Compte\r\n" + "WHERE ID_Client = " + id_client);
 			LiensBdd.closeBdd();
 			return rs;
 		} catch (SQLException e) {
