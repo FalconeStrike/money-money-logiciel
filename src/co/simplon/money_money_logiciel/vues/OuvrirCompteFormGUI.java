@@ -38,7 +38,6 @@ public class OuvrirCompteFormGUI extends JFrame {
 	 */
 	public OuvrirCompteFormGUI(final int id_client) {
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ouvrir un Compte");
 
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -70,11 +69,11 @@ public class OuvrirCompteFormGUI extends JFrame {
 		messageConfirm.setForeground(new Color(255, 0, 0));
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
-		messageConfirm.setBounds(50, 530, 374, 60);
+		messageConfirm.setBounds(50, 580, 374, 60);
 
 		final JButton btnNewButton = new JButton("Ouvrir un compte");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnNewButton.setBounds(123, 580, 225, 40);
+		btnNewButton.setBounds(123, 550, 225, 40);
 		getContentPane().add(btnNewButton);
 
 		JLabel lblSoldeInitial = new JLabel("Solde initial");
@@ -89,12 +88,12 @@ public class OuvrirCompteFormGUI extends JFrame {
 		getContentPane().add(txtSoldeInit);
 
 		final JPanel panelCompteEpargne = new JPanel();
-		panelCompteEpargne.setBounds(50, 435, 356, 130);
+		panelCompteEpargne.setBounds(50, 420, 356, 130);
 		getContentPane().add(panelCompteEpargne);
 		panelCompteEpargne.setLayout(null);
 
 		final JPanel panelCompteCourant = new JPanel();
-		panelCompteCourant.setBounds(50, 435, 356, 137);
+		panelCompteCourant.setBounds(50, 420, 356, 137);
 		getContentPane().add(panelCompteCourant);
 		panelCompteCourant.setLayout(null);
 
@@ -161,11 +160,11 @@ public class OuvrirCompteFormGUI extends JFrame {
 		txtMontantPlafond.setBounds(198, 75, 122, 34);
 		panelCompteEpargne.add(txtMontantPlafond);
 
-		final JTextArea textMontantFrais = new JTextArea("0");
-		textMontantFrais.setToolTipText("Le montant maximum est de 100000€");
-		textMontantFrais.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		textMontantFrais.setBounds(198, 19, 122, 34);
-		panelCompteEpargne.add(textMontantFrais);
+		final JTextArea textMontantTaux = new JTextArea("0");
+		textMontantTaux.setToolTipText("Le montant maximum est de 100000€");
+		textMontantTaux.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		textMontantTaux.setBounds(198, 19, 122, 34);
+		panelCompteEpargne.add(textMontantTaux);
 		panelCompteEpargne.setVisible(false);
 
 		// Composants Compte Courant
@@ -179,17 +178,17 @@ public class OuvrirCompteFormGUI extends JFrame {
 		lblSoldeMin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelCompteCourant.add(lblSoldeMin);
 
-		final JTextArea textMontantTaux = new JTextArea("0");
-		textMontantTaux.setToolTipText("Le montant maximum est de 100000€");
-		textMontantTaux.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		textMontantTaux.setBounds(198, 75, 122, 34);
-		panelCompteCourant.add(textMontantTaux);
+		final JTextArea textMontantSoldeMn = new JTextArea("0");
+		textMontantSoldeMn.setToolTipText("Le montant maximum est de 100000€");
+		textMontantSoldeMn.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		textMontantSoldeMn.setBounds(198, 75, 122, 34);
+		panelCompteCourant.add(textMontantSoldeMn);
 
-		final JTextArea textMontantSoldeMin = new JTextArea("0");
-		textMontantSoldeMin.setToolTipText("Le montant maximum est de 100000€");
-		textMontantSoldeMin.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		textMontantSoldeMin.setBounds(198, 19, 122, 34);
-		panelCompteCourant.add(textMontantSoldeMin);
+		final JTextArea textMontantFrais = new JTextArea("0");
+		textMontantFrais.setToolTipText("Le montant maximum est de 100000€");
+		textMontantFrais.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		textMontantFrais.setBounds(198, 19, 122, 34);
+		panelCompteCourant.add(textMontantFrais);
 
 		panelCompteCourant.setVisible(false);
 
@@ -211,45 +210,55 @@ public class OuvrirCompteFormGUI extends JFrame {
 
 				float soldeInit = 0;
 				// Vérification que le champ Solde n'est pas vide
-				if (!txtSoldeInit.getText().isEmpty() && txtSoldeInit.getText() != null) {
+				if (!txtSoldeInit.getText().isEmpty() && txtSoldeInit.getText() != null
+						&& txtSoldeInit.getText().matches("[0-9]*")) {
 					soldeInit = Float.parseFloat(txtSoldeInit.getText());
 				} else {
+					txtSoldeInit.setText(" ");
 					txtSoldeInit.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Ce champ ne peut pas être vide");
 					setVisible(true);
 				}
 				// Vérification que le champ Frais Transfert n'est pas vide
-				float frais_transfert = 0;
-				if (!textMontantTaux.getText().isEmpty() && textMontantTaux.getText() != null) {
-					frais_transfert = Float.parseFloat(textMontantTaux.getText());
+				float solde_min = 0;
+				if (!textMontantSoldeMn.getText().isEmpty() && textMontantSoldeMn.getText() != null
+						&& textMontantSoldeMn.getText().matches("[0-9]*")) {
+					solde_min = Float.parseFloat(textMontantSoldeMn.getText());
 				} else {
-					textMontantTaux.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+					textMontantSoldeMn.setText(" ");
+					textMontantSoldeMn.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Ce champ ne peut pas être vide");
 					setVisible(true);
 				}
 				// Vérification que le champ Solde Minimum n'est pas vide
-				float solde_min = 0;
-				if (!textMontantSoldeMin.getText().isEmpty() && textMontantSoldeMin.getText() != null) {
-					solde_min = Float.parseFloat(textMontantSoldeMin.getText());
+				float frais_transfert = 0;
+				if (!textMontantFrais.getText().isEmpty() && textMontantFrais.getText() != null
+						&& textMontantFrais.getText().matches("[0-9]*")) {
+					frais_transfert = Float.parseFloat(textMontantFrais.getText());
 				} else {
-					textMontantSoldeMin.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+					textMontantFrais.setText(" ");
+					textMontantFrais.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Ce champ ne peut pas être vide");
 					setVisible(true);
 				}
 				// Vérification que le champ Taux n'est pas vide
 				float taux = 0;
-				if (!textMontantFrais.getText().isEmpty() && textMontantFrais.getText() != null) {
-					taux = Float.parseFloat(textMontantFrais.getText());
+				if (!textMontantTaux.getText().isEmpty() && textMontantTaux.getText() != null
+						&& textMontantTaux.getText().matches("[0-9]*")) {
+					taux = Float.parseFloat(textMontantTaux.getText());
 				} else {
-					textMontantFrais.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+					textMontantTaux.setText(" ");
+					textMontantTaux.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Ce champ ne peut pas être vide");
 					setVisible(true);
 				}
 				// Vérification que le champ plafond n'est pas vide
 				float plafond = 0;
-				if (!txtMontantPlafond.getText().isEmpty() && txtMontantPlafond.getText() != null) {
+				if (!txtMontantPlafond.getText().isEmpty() && txtMontantPlafond.getText() != null
+						&& txtMontantPlafond.getText().matches("[0-9]*")) {
 					plafond = Float.parseFloat(txtMontantPlafond.getText());
 				} else {
+					txtMontantPlafond.setText(" ");
 					txtMontantPlafond.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Ce champ ne peut pas être vide");
 					setVisible(true);
@@ -257,20 +266,20 @@ public class OuvrirCompteFormGUI extends JFrame {
 				// Création du compte selon le type de compte sélectionné
 
 				// Vérification solde initial est inférieur au solde min
-				if (rdbtnCompteCourant.isSelected() == true && soldeInit < solde_min) {
+				if (rdbtnCompteCourant.isSelected() == true && soldeInit > solde_min) {
 					messageConfirm.setText("Le solde doit dépasser le solde minimum");
 					messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 					txtSoldeInit.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-					messageConfirm.setBounds(60, 5305, 374, 60);
+					messageConfirm.setBounds(60, 590, 374, 60);
 					setVisible(true);
 				}
 				// Création du compte courant
-				else if (rdbtnCompteCourant.isSelected() == true && soldeInit >= solde_min) {
+				else if (rdbtnCompteCourant.isSelected() == true && soldeInit > solde_min) {
 					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 2, libelle, frais_transfert,
 							solde_min);
 					messageConfirm.setText("Le compte n°" + num_compte + " a bien été créé");
 					messageConfirm.setForeground(new Color(0, 255, 0));
-					messageConfirm.setBounds(60, 530, 374, 60);
+					messageConfirm.setBounds(60, 590, 374, 60);
 					setVisible(true);
 					btnNewButton.setEnabled(false);
 				}
@@ -279,21 +288,33 @@ public class OuvrirCompteFormGUI extends JFrame {
 					messageConfirm.setText("Le solde ne doit pas dépasser le plafond");
 					messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 					txtSoldeInit.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-					messageConfirm.setBounds(60, 530, 374, 60);
+					messageConfirm.setBounds(60, 590, 374, 60);
 					setVisible(true);
 				}
 				// Création compte épargne
-				else if (rdbtnCompteEpargne.isSelected() == true && soldeInit <= plafond) {
+				else if (rdbtnCompteEpargne.isSelected() == true && soldeInit <= plafond && taux != 0) {
 					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 1, libelle, taux, plafond);
 					messageConfirm.setText("Le compte n°" + num_compte + " a bien été créé");
 					messageConfirm.setForeground(new Color(0, 255, 0));
-					messageConfirm.setBounds(60, 530, 374, 60);
+					messageConfirm.setBounds(60, 590, 374, 60);
 					setVisible(true);
 					btnNewButton.setEnabled(false);
 				} else {
 					messageConfirm.setText("Tous les champs doivent être remplis");
 					setVisible(true);
 				}
+			}
+		});
+
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRetour.setBounds(10, 11, 100, 33);
+
+		getContentPane().add(btnRetour);
+
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 

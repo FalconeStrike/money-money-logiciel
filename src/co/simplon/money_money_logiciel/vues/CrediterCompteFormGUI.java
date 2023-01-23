@@ -12,7 +12,6 @@ import co.simplon.money_money_logiciel.controller.Compte_Handler;
 import co.simplon.money_money_logiciel.dao.DaoCompte;
 
 import javax.swing.JButton;
-import java.util.*;
 import javax.swing.JTextArea;
 
 public class CrediterCompteFormGUI extends JFrame {
@@ -22,7 +21,9 @@ public class CrediterCompteFormGUI extends JFrame {
 	static JButton jButton;
 
 	public CrediterCompteFormGUI(final int id) {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setTitle("Créditer");
+		 
 
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
 		setResizable(false);
@@ -40,7 +41,7 @@ public class CrediterCompteFormGUI extends JFrame {
 
 		JLabel lblDbiterLeCompte = new JLabel("Créditer le compte n°" + DaoCompte.getNumeroCompte(id));
 		lblDbiterLeCompte.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblDbiterLeCompte.setBounds(86, 0, 380, 59);
+		lblDbiterLeCompte.setBounds(86, 50, 380, 59);
 		getContentPane().add(lblDbiterLeCompte);
 
 		final JTextArea txtSolde = new JTextArea(Float.toString(Compte_Handler.afficheSolde(id)));
@@ -58,17 +59,20 @@ public class CrediterCompteFormGUI extends JFrame {
 		final JLabel messageConfirm = new JLabel(" ");
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
-		messageConfirm.setBounds(82, 513, 374, 40);
+		messageConfirm.setBounds(90, 513, 374, 40);
+		messageConfirm.setForeground(new Color(255, 0, 0));
 
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnNewButton.setBounds(150, 437, 150, 40);
 		getContentPane().add(btnNewButton);
+
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				float soldeActuel = Float.parseFloat(txtSolde.getText());
 				float montantACrediter = 0;
-				if (textMontant.getText().equals("0")) {
+				if (textMontant.getText().equals("0") || !textMontant.getText().matches("[0-9]*")) {
+					textMontant.setText(" ");
 					textMontant.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Entrer un montant à créditer");
 					setVisible(true);
@@ -83,12 +87,26 @@ public class CrediterCompteFormGUI extends JFrame {
 						textMontant.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 						messageConfirm.setText("Le compte n'a pas été crédité");
 						setVisible(true);
-					};
-				};
+					}
+					;
+				}
+				;
+			}
+		});
+
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRetour.setBounds(10, 11, 100, 33);
+		getContentPane().add(btnRetour);
+
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 
 		setSize(480, 700);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }
