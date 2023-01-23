@@ -95,7 +95,7 @@ public class DaoCompte {
 		}
 	}
 
-	public static ResultSet getListComptedestination(int id_compte, int id_client) {
+	public static ResultSet getListComptedestination(int id_client, int id_compte) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
 			ResultSet rs = st.executeQuery(

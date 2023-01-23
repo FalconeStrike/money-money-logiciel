@@ -1,7 +1,5 @@
 package co.simplon.money_money_logiciel.vues;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.event.*;
 
 import co.simplon.money_money_logiciel.controller.Client_Handler;
@@ -106,7 +104,7 @@ public class ListeComptesFormGUI extends JFrame {
 		});
 		getContentPane().add(btnDebiter);
 
-		btnTransferer = new JButton("Tranférer");
+		btnTransferer = new JButton("Transférer");
 		btnTransferer.setBounds(550, 350, 150, 40);
 		btnTransferer.setEnabled(false);
 		btnTransferer.addActionListener(new ActionListener() {
@@ -138,7 +136,7 @@ public class ListeComptesFormGUI extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JDialog delete = new JDialog();
-				JLabel lblConfirmation = new JLabel("Confirmer la clôturation?");
+				JLabel lblConfirmation = new JLabel("Confirmer la clôture ?");
 				JButton btnCancel = new JButton("Non");
 				JButton btnConfirm = new JButton("Oui");
 				JPanel pnComfirmation = new JPanel();
@@ -170,5 +168,18 @@ public class ListeComptesFormGUI extends JFrame {
 			}
 		});
 		getContentPane().add(btnDelete);
+		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRetour.setBounds(10, 11, 100, 33);
+
+		getContentPane().add(btnRetour);
+
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionBancaireGUI();
+				dispose();
+			}
+		});
 	}
 }

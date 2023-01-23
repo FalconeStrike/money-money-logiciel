@@ -266,7 +266,7 @@ public class OuvrirCompteFormGUI extends JFrame {
 				// Création du compte selon le type de compte sélectionné
 
 				// Vérification solde initial est inférieur au solde min
-				if (rdbtnCompteCourant.isSelected() == true && soldeInit > solde_min) {
+				if (rdbtnCompteCourant.isSelected() == true && soldeInit < solde_min) {
 					messageConfirm.setText("Le solde doit dépasser le solde minimum");
 					messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 					txtSoldeInit.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
@@ -292,7 +292,7 @@ public class OuvrirCompteFormGUI extends JFrame {
 					setVisible(true);
 				}
 				// Création compte épargne
-				else if (rdbtnCompteEpargne.isSelected() == true && soldeInit <= plafond && taux != 0) {
+				else if (rdbtnCompteEpargne.isSelected() == true && soldeInit <= plafond && taux >= 0) {
 					Compte_Handler.creerCompte(num_compte, id_client, soldeInit, 1, libelle, taux, plafond);
 					messageConfirm.setText("Le compte n°" + num_compte + " a bien été créé");
 					messageConfirm.setForeground(new Color(0, 255, 0));

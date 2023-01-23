@@ -6,7 +6,7 @@ public class TypeCompte {
 	private String NOM_TYPE;
 	
 	
-	public TypeCompte(int iD_TYPECOMPTE, String nOM_TYPE) {
+	public TypeCompte(int iD_TYPECOMPTE, String NOM_TYPE) {
 		this.ID_TYPECOMPTE = iD_TYPECOMPTE;
 		this.NOM_TYPE = NOM_TYPE;
 	}
@@ -27,8 +27,8 @@ public class TypeCompte {
 	}
 
 
-	private void setNOM_TYPE(String nOM_TYPE) {
-		NOM_TYPE = nOM_TYPE;
+	private void setNOM_TYPE(String NOM_TYPE) {
+		NOM_TYPE = NOM_TYPE;
 	}
 
 

@@ -119,8 +119,8 @@ public class WrapperCompte {
 
 
 
-	public void setNOM_TYPE(String nOM_TYPE) {
-		NOM_TYPE = nOM_TYPE;
+	public void setNOM_TYPE(String nom_type) {
+		NOM_TYPE = nom_type;
 	}
 
 

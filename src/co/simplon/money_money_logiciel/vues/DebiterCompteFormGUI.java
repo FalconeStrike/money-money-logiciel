@@ -56,7 +56,7 @@ public class DebiterCompteFormGUI extends JFrame {
 		final JLabel messageConfirm = new JLabel(" ");
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
-		messageConfirm.setBounds(90, 513, 374, 40);
+		messageConfirm.setBounds(70, 513, 374, 40);
 
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));

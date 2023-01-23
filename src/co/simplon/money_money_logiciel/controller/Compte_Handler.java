@@ -79,14 +79,13 @@ public class Compte_Handler {
 			while (rs.next()) {
 				WrapperCompte wrapperCompte = new WrapperCompte();
 				wrapperCompte.setID_Compte(rs.getInt(1));
-				wrapperCompte.setID_Client(rs.getInt(5));
+				wrapperCompte.setID_Client(rs.getInt(4));
 				wrapperCompte.setNum_Compte(rs.getInt(3));
-				wrapperCompte.setSolde_Init(rs.getFloat(6));
+				wrapperCompte.setSolde_Init(rs.getFloat(5));
 				wrapperCompte.setNOM_TYPE(rs.getString(8));
-
 				comptes.add(wrapperCompte);
-				return new CompteWrapperTableModel(comptes);
 			}
+			return new CompteWrapperTableModel(comptes);
 		} catch (SQLException e) {
 			System.out.println("SQL Exception found");
 		}
@@ -114,8 +113,8 @@ public class Compte_Handler {
 		}
 		return null;
 	}
-  
-	public static Boolean clotureCompteClient (Compte compte) {
+
+	public static Boolean clotureCompteClient(Compte compte) {
 		return DaoCompte.deleteCompte(compte);
 	}
 
