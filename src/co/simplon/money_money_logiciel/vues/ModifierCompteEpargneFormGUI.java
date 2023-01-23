@@ -22,7 +22,6 @@ public class ModifierCompteEpargneFormGUI extends JFrame {
 		setSize(450, 700);
 		setResizable(false);
 		getContentPane().setLayout(null);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JLabel compteEpargne = new JLabel("COMPTE EPARGNE");
 		compteEpargne.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -101,8 +100,20 @@ public class ModifierCompteEpargneFormGUI extends JFrame {
 				;
 			}
 		});
-		setVisible(true);
+    
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRetour.setBounds(10, 11, 100, 33);
+		getContentPane().add(btnRetour);
 
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 
 }

@@ -2,7 +2,6 @@ package co.simplon.money_money_logiciel.vues;
 
 import javax.swing.*;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
@@ -13,23 +12,7 @@ import co.simplon.money_money_logiciel.controller.Compte_Handler;
 import co.simplon.money_money_logiciel.dao.DaoCompte;
 
 import javax.swing.JButton;
-import java.util.*;
 import javax.swing.JTextArea;
-
-import javax.swing.JLabel;
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import co.simplon.money_money_logiciel.controller.Client_Handler;
-import co.simplon.money_money_logiciel.modeles.Client;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 
 public class DebiterCompteFormGUI extends JFrame {
 
@@ -56,7 +39,7 @@ public class DebiterCompteFormGUI extends JFrame {
 
 		JLabel lblDbiterLeCompte = new JLabel("Débiter le compte n°" + DaoCompte.getNumeroCompte(id));
 		lblDbiterLeCompte.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblDbiterLeCompte.setBounds(86, 0, 380, 59);
+		lblDbiterLeCompte.setBounds(86, 50, 380, 59);
 		getContentPane().add(lblDbiterLeCompte);
 
 		final JTextArea txtSolde = new JTextArea(Float.toString(Compte_Handler.afficheSolde(id)));
@@ -73,7 +56,7 @@ public class DebiterCompteFormGUI extends JFrame {
 		final JLabel messageConfirm = new JLabel(" ");
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
-		messageConfirm.setBounds(82, 513, 374, 40);
+		messageConfirm.setBounds(90, 513, 374, 40);
 
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -83,7 +66,8 @@ public class DebiterCompteFormGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				float soldeActuel = Float.parseFloat(txtSolde.getText());
 				float montantADebiter = 0;
-				if (textMontant.getText().equals("0")) {
+				if (textMontant.getText().equals("0") || !textMontant.getText().matches("[0-9]*")) {
+					textMontant.setText(" ");
 					textMontant.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 					messageConfirm.setText("Entrer un montant à débiter");
 					setVisible(true);
@@ -92,18 +76,34 @@ public class DebiterCompteFormGUI extends JFrame {
 					boolean estDebite = Compte_Handler.debiterCompte(id, soldeActuel, montantADebiter);
 					if (estDebite) {
 						messageConfirm.setText("Le compte a été débité de " + montantADebiter + "€");
+						messageConfirm.setForeground(new Color(0, 255, 0));
 						setVisible(true);
 						txtSolde.setText(Float.toString(Compte_Handler.afficheSolde(id)));
 					} else {
 						textMontant.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 						messageConfirm.setText("Le compte n'a pas été débité");
+						messageConfirm.setForeground(new Color(255, 0, 0));
 						setVisible(true);
-					};
-				};
+					}
+					;
+				}
+				;
+			}
+		});
+
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRetour.setBounds(10, 11, 100, 33);
+		getContentPane().add(btnRetour);
+
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 
 		setSize(480, 700);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }

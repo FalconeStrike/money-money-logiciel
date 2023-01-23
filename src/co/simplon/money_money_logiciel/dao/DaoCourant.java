@@ -30,8 +30,7 @@ public class DaoCourant {
 
 	public static void UpdateNomClient(int id_compte, String libelle_client) {
 		try {
-			PreparedStatement st = LiensBdd
-					.connectionBddPrep("UPDATE compte SET libelle_client = ? WHERE id_compte = ? ;");
+			PreparedStatement st = LiensBdd.connectionBddPrep("UPDATE compte SET libelle_client = ? WHERE id_compte = ? ;");
 			st.setString(1, libelle_client);
 			st.setInt(2, id_compte);
 			st.executeUpdate();
@@ -81,7 +80,4 @@ public class DaoCourant {
 	}
 
 	////////////////////////////////////////////////////////////
-
-	// SELECT * id_courant,id_epargne From compte + id_compte WHERE id
-
 }

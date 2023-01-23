@@ -9,8 +9,8 @@ public class CompteCourant_Handler {
 	
 	//////////////////AFFICHAGE DU NOM DU CLIENT////////////////////
 	
-	public static String affichageNomDuClient(int id_client) {
-		return DaoCourant.getNomClient(id_client);
+	public static String affichageNomDuClient(int id_compte) {
+		return DaoCourant.getNomClient(id_compte);
 	}
 	
 	
@@ -30,10 +30,10 @@ public class CompteCourant_Handler {
 	
 	//////////////////MODIFICATION DU NOM DU CLIENT////////////////////
 
-	public static Boolean modificationNomDuClient(int id_client, String nom_client) {
+	public static Boolean modificationNomDuClient(int id_compte, String libelle_client) {
 		
-		if(nom_client != null && !nom_client.trim().isEmpty() && nom_client.length()<50)  {
-			DaoCourant.UpdateNomClient(id_client, nom_client);
+		if(libelle_client != null && !libelle_client.trim().isEmpty() && libelle_client.length()<50)  {
+			DaoCourant.UpdateNomClient(id_compte, libelle_client);
 			
 			return true;
 		}
@@ -49,10 +49,10 @@ public class CompteCourant_Handler {
 	
 	//////////////////MODIFICATION DES FRAIS DE TRANSFERT DU COMPTE COURANT////////////////////
 	
-	public static boolean modificationFraisDeTransfertCourantDao(int id_courant,double frais_transfert) {
+	public static boolean modificationFraisDeTransfertCourantDao(int id_compte,double frais_transfert) {
 		
 		if(frais_transfert > 0)  {
-			DaoCourant.UpdateFraisDeTransfertCourantDao(id_courant, frais_transfert);
+			DaoCourant.UpdateFraisDeTransfertCourantDao(id_compte, frais_transfert);
 			
 			return true;
 		}
