@@ -115,7 +115,6 @@ public class TransfererSoldeFormGUI extends JFrame {
 					if(estDebite) {
 						
 						Compte_Handler.crediterCompte(compteDest.getID_Compte(), compteDest.getSolde_Init(), sommeActuelle);
-						System.out.println("C'est ok");
 						confirmationSommeCredit.setText("Vous avez transféré  " + sommeActuelle+" Euros");
 						confirmationSommeCredit.setForeground(Color.green);
 						confirmationSommeCredit.setVisible(true);

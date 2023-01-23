@@ -112,7 +112,7 @@ public class ListeComptesFormGUI extends JFrame {
 		btnTransferer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					Compte compte = CompteTableModel.getCompte(tbCompte.getSelectedRow());
-//					new TransfererSoldeFormGUI(compte);
+					new TransfererSoldeFormGUI(compte);
 			}
 		});
 		getContentPane().add(btnTransferer);
@@ -124,9 +124,9 @@ public class ListeComptesFormGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 					Compte compte = CompteTableModel.getCompte(tbCompte.getSelectedRow());
 					if (compte.getID_Typecompte() == 1) {
-//						new ModifierCompteCourantGUI(compte.getID_Compte());
+						new ModifierCompteEpargneFormGUI(compte.getID_Compte());
 					} else {
-//						new ModifierCompteEpargneGUI(compte.getID_Compte());
+						new ModifierCompteCourantFormGUI(compte.getID_Compte());
 					}
 			}
 		});
