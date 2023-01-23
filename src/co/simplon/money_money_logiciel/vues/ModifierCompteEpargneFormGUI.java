@@ -100,6 +100,7 @@ public class ModifierCompteEpargneFormGUI extends JFrame {
 				;
 			}
 		});
+    
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnRetour.setBounds(10, 11, 100, 33);

@@ -15,7 +15,7 @@ public class DaoCourant {
 
 		try {
 			Statement st = LiensBdd.connectionBdd();
-			ResultSet rs = st.executeQuery("SELECT libelle_client FROM client WHERE id_compte = " + id_compte);
+			ResultSet rs = st.executeQuery("SELECT libelle_client FROM compte WHERE id_compte = " + id_compte);
 			rs.next();
 			nomDuclient = rs.getString(1);
 			LiensBdd.closeBdd();
@@ -26,8 +26,7 @@ public class DaoCourant {
 
 	}
 
-	////////////////////////////////////////// MODIFICATION DU NOM DU
-	////////////////////////////////////////// CLIENT///////////////////////////////////////////////////
+	////////////////////////////////////////// MODIFICATION DU NOM DU CLIENT/////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static void UpdateNomClient(int id_compte, String libelle_client) {
 		try {
