@@ -6,117 +6,73 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DaoEpargne {
-	
-	
-	
-///////////////////////////////////RÉCUPÉRATION DU COMPTE EPARGNE POUR POUVOIR SÉLECTIONNER ET MANIPULER LE COMPTE////////////////////////////////////
-
-	
-
-public static int getNumeroCompteEpargne(int id_epargne) {
-int numeroCompteEpargne = 0;
-try {
-Statement st = LiensBdd.connectionBdd();
-ResultSet rs = st.executeQuery("SELECT id_courant FROM courant WHERE id_courant = " + id_epargne);
-rs.next();
-numeroCompteEpargne = rs.getInt(1);
-LiensBdd.closeBdd();
-} catch (SQLException e) {
-System.out.println("SQL Exception found");
-}
-return numeroCompteEpargne;
-
-}
-
-
-
 
 //////////////////////////////////////////////RÉCUPÉRATION DU NOM DU CLIENT POUR L'AFFICHAGE DANS LE  FRONT///////////////////
 
-public static String getNomClient(int id_client) {
+	public static String getNomClient(int id_compte) {
 
+		String nomDuclient = "";
 
-String nomDuclient= "" ;
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery("SELECT libelle_client FROM compte WHERE id_compte = " + id_compte);
+			rs.next();
+			nomDuclient = rs.getString(1);
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return nomDuclient;
 
-try {
-Statement st = LiensBdd.connectionBdd();
-ResultSet rs = st.executeQuery("SELECT nom_client FROM client WHERE id_client = " + id_client);
-rs.next();
-nomDuclient= rs.getString(1);
-LiensBdd.closeBdd();
-} catch (SQLException e) {
-System.out.println("SQL Exception found");
-}
-return nomDuclient;
-
-
-}
-
-
+	}
 
 //////////////////////////////////////////MODIFICATION DU NOM DU CLIENT///////////////////////////////////////////////////
 
-
-
-public static void UpdateNomClient(int id_client, String nom_client) {
-try {
-PreparedStatement st = LiensBdd.connectionBddPrep("UPDATE client SET nom_client = ? WHERE id_client = ? ;");
-st.setString(1,nom_client);
-st.setInt(2,id_client);
-st.executeUpdate();
-LiensBdd.closeBdd();
-} 
-catch (SQLException e) {
-System.out.println("Class not found " + e);
-} 
-}
-
-
+	public static void UpdateNomClient(int id_compte, String libelle_client) {
+		try {
+			PreparedStatement st = LiensBdd.connectionBddPrep("UPDATE compte SET libelle_client = ? WHERE id_compte = ? ;");
+			st.setString(1, libelle_client);
+			st.setInt(2, id_compte);
+			st.executeUpdate();
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("Class not found " + e);
+		}
+	}
 
 ///////////////////////////////////RÉCUPÉRATION DES TAUX D'INTÉRÊT ACTUELS DU COMPTE EPARGNE POUR LES AFFICHER DANS LE FRONT////////////////////////////////////
 
+	public static double getTauxInteret(int id_epargne) {
 
+		double tauxInteret = 0;
+		try {
+			Statement st = LiensBdd.connectionBdd();
+			ResultSet rs = st.executeQuery("SELECT taux FROM epargne WHERE id_epargne = " + id_epargne);
+			rs.next();
+			tauxInteret = rs.getDouble(1);
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("SQL Exception found");
+		}
+		return tauxInteret;
 
-public static double getTauxInteret(int id_epargne) {
-
-double tauxInteret = 0;
-try {
-Statement st = LiensBdd.connectionBdd();
-ResultSet rs = st.executeQuery("SELECT taux FROM epargne WHERE id_epargne = " + id_epargne);
-rs.next();
-tauxInteret = rs.getDouble(1);
-LiensBdd.closeBdd();
-} catch (SQLException e) {
-System.out.println("SQL Exception found");
-}
-return tauxInteret;
-
-
-}
-
-
-
-
+	}
 
 ///////////////////////////////////ENREGISTREMENT DES NOUVEAUX TAUX D'INTÉRÊTS DU COMPTE EPARGNE////////////////////////////////////
 
+	public static void UpdateTauxInteretEpargne(int id_compte, double taux) {
 
+		try {
 
-public static void UpdateTauxInteretEpargne(int id_epargne,double taux) {
+			PreparedStatement st = LiensBdd
+					.connectionBddPrep("UPDATE epargne SET taux = ? WHERE id_compte = " + id_compte);
+			st.setDouble(1, taux);
+			st.executeUpdate();
+			LiensBdd.closeBdd();
+		} catch (SQLException e) {
+			System.out.println("Class not found " + e);
+		}
 
-
-try {
-
-PreparedStatement st = LiensBdd.connectionBddPrep("UPDATE epargne SET taux = ? WHERE id_epargne = "+id_epargne);
-st.setDouble(1,taux);
-st.executeUpdate();
-LiensBdd.closeBdd();
-} 
-catch (SQLException e) {
-System.out.println("Class not found " + e);
-} 
-
-
- }
+	}
 
 }

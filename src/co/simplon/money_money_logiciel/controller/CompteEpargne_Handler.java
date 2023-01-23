@@ -9,8 +9,8 @@ public class CompteEpargne_Handler {
 	
 //////////////////AFFICHAGE DU NOM DU CLIENT////////////////////
 	
-public static String affichageNomDuClient(int id_client) {
-return DaoEpargne.getNomClient(id_client);
+public static String affichageNomDuClient(int id_compte) {
+return DaoEpargne.getNomClient(id_compte);
 }
 
 
@@ -31,10 +31,10 @@ return DaoEpargne.getTauxInteret(id_epargne);	}
 
 //////////////////MODIFICATION DU NOM DU CLIENT////////////////////
 
-public static boolean modificationNomDuClient(int id_client, String nom_client) {
+public static boolean modificationNomDuClient(int id_compte, String libelle_client) {
 	
-	if(nom_client != null && !nom_client.trim().isEmpty() && nom_client.length()<50)  {
-		DaoEpargne.UpdateNomClient(id_client, nom_client);
+	if(libelle_client != null && !libelle_client.trim().isEmpty() && libelle_client.length()<50)  {
+		DaoEpargne.UpdateNomClient(id_compte, libelle_client);
 		
 		return true;
 	}
@@ -51,10 +51,10 @@ public static boolean modificationNomDuClient(int id_client, String nom_client) 
 
 //////////////////MODIFICATION DES TAUX D'INTÉRÊTS DU COMPTE EPARGNE////////////////////
 
-public static boolean ModificationTauxInteretEpargneDao(int id_courant,double taux) {
+public static boolean ModificationTauxInteretEpargneDao(int id_epargne, double taux) {
 	
 	if(taux  > 0)  {
-		DaoEpargne.UpdateTauxInteretEpargne(id_courant, taux);
+		DaoEpargne.UpdateTauxInteretEpargne(id_epargne, taux);
 		
 		return true;
 	}

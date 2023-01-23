@@ -57,7 +57,6 @@ public class DebiterCompteFormGUI extends JFrame {
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
 		messageConfirm.setBounds(90, 513, 374, 40);
-		messageConfirm.setForeground(new Color(255, 0, 0));
 
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -77,11 +76,13 @@ public class DebiterCompteFormGUI extends JFrame {
 					boolean estDebite = Compte_Handler.debiterCompte(id, soldeActuel, montantADebiter);
 					if (estDebite) {
 						messageConfirm.setText("Le compte a été débité de " + montantADebiter + "€");
+						messageConfirm.setForeground(new Color(0, 255, 0));
 						setVisible(true);
 						txtSolde.setText(Float.toString(Compte_Handler.afficheSolde(id)));
 					} else {
 						textMontant.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 						messageConfirm.setText("Le compte n'a pas été débité");
+						messageConfirm.setForeground(new Color(255, 0, 0));
 						setVisible(true);
 					}
 					;

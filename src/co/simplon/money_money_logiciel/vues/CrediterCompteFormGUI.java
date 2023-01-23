@@ -21,7 +21,6 @@ public class CrediterCompteFormGUI extends JFrame {
 	static JButton jButton;
 
 	public CrediterCompteFormGUI(final int id) {
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setTitle("Créditer");
 		 
 
@@ -60,7 +59,6 @@ public class CrediterCompteFormGUI extends JFrame {
 		messageConfirm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		getContentPane().add(messageConfirm);
 		messageConfirm.setBounds(90, 513, 374, 40);
-		messageConfirm.setForeground(new Color(255, 0, 0));
 
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -81,11 +79,13 @@ public class CrediterCompteFormGUI extends JFrame {
 					boolean estDebite = Compte_Handler.crediterCompte(id, soldeActuel, montantACrediter);
 					if (estDebite) {
 						messageConfirm.setText("Le compte a été crédité de " + montantACrediter + "€");
+						messageConfirm.setForeground(new Color(0, 255, 0));
 						setVisible(true);
 						txtSolde.setText(Float.toString(Compte_Handler.afficheSolde(id)));
 					} else {
 						textMontant.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 						messageConfirm.setText("Le compte n'a pas été crédité");
+						messageConfirm.setForeground(new Color(255, 0, 0));
 						setVisible(true);
 					}
 					;

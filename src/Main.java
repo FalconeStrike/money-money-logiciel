@@ -34,8 +34,8 @@ public class Main {
 		//DaoCompte.getTypeCompte(2);
 		//Compte_Handler.getCompteDestination(1, 2);
 //		new ListeComptesFormGUI();
-		new CrediterCompteFormGUI(2);
+//		new CrediterCompteFormGUI(2);
 //		new OuvrirCompteFormGUI(2);
-//		new GestionBancaireGUI();
+		new GestionBancaireGUI();
 	}
 }
