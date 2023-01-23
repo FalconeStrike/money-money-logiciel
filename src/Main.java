@@ -18,9 +18,9 @@ public class Main {
 		//frame1.setVisible(true);
 		//ModifierCompteEpargneFormGUI frame2 = new ModifierCompteEpargneFormGUI(1);
 		//frame2.setVisible(true);
-//		Compte compte = new Compte (2,2,782425,1,2,4146);
-//		TransfererSoldeFormGUI frame3 = new TransfererSoldeFormGUI(compte);
-//		frame3.setVisible(true);
+		//Compte compte = new Compte (2,2,782425,2,4118,"");
+		//TransfererSoldeFormGUI frame3 = new TransfererSoldeFormGUI(compte);
+		//frame3.setVisible(true);
 		//new DaoCourant();
 		//DaoCourant.getFraisDeTransfert(2);
 		//DaoCourant.ModifierFraisDeTransfertCourantDao(1, 5);

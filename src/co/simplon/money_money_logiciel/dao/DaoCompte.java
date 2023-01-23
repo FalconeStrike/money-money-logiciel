@@ -11,6 +11,10 @@ import co.simplon.money_money_logiciel.modeles.Compte;
  *
  */
 
+/**
+ * @author iamalfarwest
+ *
+ */
 public class DaoCompte {
 
 	/**
@@ -94,7 +98,14 @@ public class DaoCompte {
 			System.out.println("SQL Exception found");
 		}
 	}
-
+	
+	/**
+	 * 
+	 * requête qui permet de faire des transferts monétaire d'un compte à un autre 
+	 * @param id_compte
+	 * @param id_client
+	 * @return
+	 */
 	public static ResultSet getListComptedestination(int id_compte, int id_client) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
@@ -109,6 +120,12 @@ public class DaoCompte {
 		return null;
 	}
 
+	/**
+	 * 
+	 * requête qui permet de récupérer tous les comptes un client donné
+	 * @param id_client
+	 * @return
+	 */
 	public static ResultSet getAllCompte(int id_client) {
 		try {
 			Statement st = LiensBdd.connectionBdd();
@@ -121,6 +138,12 @@ public class DaoCompte {
 		return null;
 	}
 
+	/**
+	 * 
+	 * requête permettant de supprimer toutes les informations d'un compte donné.
+	 * 
+	 * @param compte
+	 */
 	public static void deleteCompte(Compte compte) {
 		try {
 			String rq = "";
