@@ -15,7 +15,7 @@ public class DaoCourant {
 
 		try {
 			Statement st = LiensBdd.connectionBdd();
-			ResultSet rs = st.executeQuery("SELECT libelle_client FROM client WHERE id_compte = " + id_compte);
+			ResultSet rs = st.executeQuery("SELECT libelle_client FROM compte WHERE id_compte = " + id_compte);
 			rs.next();
 			nomDuclient = rs.getString(1);
 			LiensBdd.closeBdd();
@@ -45,12 +45,12 @@ public class DaoCourant {
 	/////////////////////////////////// DU COMPTE COURANT POUR LES AFFICHER DANS LE
 	/////////////////////////////////// FRONT////////////////////////////////////
 
-	public static double getFraisDeTransfert(int id_courant) {
+	public static double getFraisDeTransfert(int id_compte) {
 
 		double fraisDeTransfert = 0;
 		try {
 			Statement st = LiensBdd.connectionBdd();
-			ResultSet rs = st.executeQuery("SELECT frais_transfert FROM courant WHERE id_courant = " + id_courant);
+			ResultSet rs = st.executeQuery("SELECT frais_transfert FROM courant WHERE id_compte = " + id_compte);
 			rs.next();
 			fraisDeTransfert = rs.getDouble(1);
 			LiensBdd.closeBdd();
